@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Karla's Cakes — Welcome</title>
+    <style>
+        :root{
+            --overlay: rgba(0,0,0,0.45);
+            --accent: #ff7fbf;
+            --accent-2: #ffd88d;
+            --glass: rgba(255,255,255,0.08);
+            --max-width: 1100px;
+        }
+
+        /* Full-page hero */
+        html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+        body{
+            background: linear-gradient(180deg, rgba(255,200,220,0.06), rgba(255,230,200,0.03));
+            color:#fff;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+        .navigation{
+            position:fixed;
+            top:0;left:0;right:0;
+            padding:18px 40px;
+            z-index:10;
+            display:flex;
+            justify-content:flex-end;
+            background:rgba(0,0,0,0.2);
+            backdrop-filter:blur(8px);
+            box-shadow:0 2px 12px rgba(0,0,0,0.3);
+        }
+        .nav{
+            max-width:var(--max-width);
+            width:100%;
+            margin:0 auto;
+            display:flex;
+            align-items:center;
+            justify-content:flex-end;
+            gap:24px;
+        }
+
+        .hero{
+            position:relative;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+        }
+
+        /* Background image (replace URL with your own image at /images/cake.jpg if desired) */
+        .hero::before{
+            content:'';
+            position:absolute;inset:0;
+            background-image: url('https://cdn.pixabay.com/photo/2016/02/29/00/19/cake-1227842_1280.jpg');
+            background-size:cover;
+            background-position:center;
+            transform:scale(1.05);
+            filter:brightness(0.8) saturate(1.05);
+            transition:transform 0.8s ease;
+            z-index:0;
+        }
+        .hero:hover::before{ transform:scale(1.07); }
+
+        /* overlay for contrast */
+        .hero::after{
+            content:'';
+            position:absolute;inset:0;
+            background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5));
+            z-index:1;
+        }
+
+        .container{
+            position:relative;
+            z-index:2;
+            max-width:var(--max-width);
+            width:calc(100% - 40px);
+            padding:40px;
+            display:flex;
+            gap:32px;
+            align-items:center;
+            justify-content:space-between;
+            flex-wrap:wrap;
+        }
+
+        .brand{
+            display:flex;
+            gap:18px;
+            align-items:center;
+        }
+        .logo{
+            width:84px;height:84px;border-radius:22px;
+            background:linear-gradient(135deg,var(--accent),var(--accent-2));
+            display:flex;align-items:center;justify-content:center;
+            box-shadow:0 6px 30px rgba(0,0,0,0.35);
+            font-size:36px;
+            transform:translateY(-6px);
+        }
+
+        .welcome-box{
+            background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            border-radius:14px;
+            padding:28px;
+            width:560px;
+            max-width:100%;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+        }
+
+        .greeting{
+            font-size:20px;
+            opacity:0.95;
+            margin:0 0 6px 0;
+            color:#fff;
+        }
+
+        h1{
+            margin:0 0 10px 0;
+            font-size:36px;
+            line-height:1.02;
+            letter-spacing:-0.02em;
+            color: #fff;
+        }
+
+        .type{
+            color:var(--accent-2);
+            font-weight:700;
+            display:inline-block;
+            min-width:120px;
+        }
+
+        p.lead{
+            margin:0 0 18px 0;
+            color:rgba(255,255,255,0.9);
+            opacity:0.95;
+        }
+
+        .actions{display:flex;gap:12px;flex-wrap:wrap;}
+        .btn{
+            display:inline-flex;align-items:center;gap:10px;
+            padding:12px 18px;border-radius:10px;
+            background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+            color:#fff;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,0.08);
+            transition:transform .14s ease,box-shadow .14s ease;
+            cursor:pointer;
+        }
+        .btn.primary{
+            background:linear-gradient(90deg,var(--accent),var(--accent-2));
+            color:#3b1b1b;
+            border:none;
+            box-shadow: 0 8px 30px rgba(255,150,180,0.12);
+        }
+        .btn:hover{transform:translateY(-4px);}
+
+        /* decorative cake illustration on right */
+        .visual{
+            width:420px;max-width:46%;
+            display:flex;align-items:center;justify-content:center;
+        }
+        .cake-card{
+            width:320px;height:320px;border-radius:28px;
+            background:var(--glass);
+            display:flex;align-items:center;justify-content:center;
+            flex-direction:column;
+            padding:22px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+            transition:transform .5s cubic-bezier(.2,.9,.3,1);
+            transform-origin:center;
+        }
+        .hero:hover .cake-card{ transform:translateY(-8px) rotate(-2deg); }
+        .cake-emoji{ font-size:88px; margin-bottom:12px; transform:translateY(-6px); }
+        .cake-desc{ color:#fff; opacity:0.95; text-align:center; font-weight:600; }
+
+        /* small footer note */
+        .note{ position: absolute; bottom:18px; left:18px; z-index:2; color:rgba(255,255,255,0.7); font-size:12px; }
+
+        /* Responsive */
+        @media (max-width:880px){
+            .container{ padding:24px;}
+            .visual{ max-width:100%; width:100%; margin-top:20px;}
+            .brand{gap:12px}
+        }
+    </style>
+</head>
+<body>
+    <main class="navigation">
+        <div class="nav">
+            <img src="/1000526212.jpg" alt="Karla's Cakes Logo" style="width:40px;height:40px;position:absolute;left:40px;top:18px;border-radius: 10px;"/>
+            <nav aria-label="Main navigation">
+                <a href="/order.html" style="margin-right:24px;color:#fff;font-weight:600;text-decoration:none;">Order</a>
+                
+                <a href="/contact.html" style="float:right;color:#fff;font-weight:600;text-decoration:none;">Contact</a>
+            </nav>
+        </div>
+    </main>
+    <main class="hero">
+        <div class="container">
+            <div style="display:flex;flex-direction:column;gap:18px;">
+                <div class="brand">
+                    <img src="/1000526212.jpg" alt="logo" style="width:60px;height:60px;border-radius:12px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.3);" />
+                    <div>
+                        <div style="font-size:14px;opacity:0.95;font-weight:700">Karla's Cakes</div>
+                        <div style="font-size:12px;opacity:0.75">Handmade celebration cakes</div>
+                    </div>
+                </div>
+
+                <section class="welcome-box" aria-labelledby="welcome-heading">
+                    <p class="greeting" id="greeting">Welcome</p>
+                    <h1 id="welcome-heading">Delicious moments, baked with love — <span class="type" id="specialty">Custom Cakes</span></h1>
+                    <p class="lead" id="subtitle">Artisanal flavors, clean designs, and deliveries on time. Let us bake your next memory.</p>
+                    <div class="actions">
+                        <a class="btn primary" id="orderBtn" href="/order.html">Order Now</a>
+                        <a class="btn" id="menuBtn" href="/menu.html">See Menu</a>
+                    </div>
+                </section>
+            </div>
+
+            <div class="visual" aria-hidden>
+                <div class="cake-card">
+                    <div class="cake-emoji">🎂</div>
+                    <div class="cake-desc">Signature: Vanilla Rose • Serves 8–10</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note" id="note">Open for custom orders • Delivery available</div>
+    </main>
+
+    <script>
+        // Identity: dynamic greeting and rotating specialties
+        (function(){
+            const greetingEl = document.getElementById('greeting');
+            const specialtyEl = document.getElementById('specialty');
+            const notes = [
+                "Vanilla Rose",
+                "Chocolate Ganache",
+                "Lemon Raspberry",
+                "Red Velvet",
+                "Salted Caramel",
+                "Matcha Dream"
+            ];
+
+            function timeGreeting(){
+                const h = new Date().getHours();
+                if(h < 12) return 'Good morning';
+                if(h < 17) return 'Good afternoon';
+                return 'Good evening';
+            }
+            greetingEl.textContent = timeGreeting() + ', welcome';
+
+            // simple rotating specialty
+            let i=0;
+            setInterval(()=>{
+                i = (i+1) % notes.length;
+                // fade effect
+                specialtyEl.style.opacity = 0;
+                setTimeout(()=> {
+                    specialtyEl.textContent = notes[i];
+                    specialtyEl.style.opacity = 1;
+                }, 260);
+            }, 3500);
+
+            // subtle mouse parallax for background position
+            const hero = document.querySelector('.hero');
+            hero.addEventListener('mousemove', e=>{
+                const w = hero.clientWidth, h = hero.clientHeight;
+                const x = (e.clientX - w/2) / w * 8;
+                const y = (e.clientY - h/2) / h * 8;
+                hero.style.setProperty('--mx', x.toFixed(2));
+                hero.style.setProperty('--my', y.toFixed(2));
+                hero.querySelector('::before');
+                hero.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
+            });
+
+            // CTA behavior (smooth scroll to anchors if present)
+            document.querySelectorAll('a[href^="#"]').forEach(a=>{
+                a.addEventListener('click', e=>{
+                    const target = document.querySelector(a.getAttribute('href'));
+                    if(target){
+                        e.preventDefault();
+                        target.scrollIntoView({behavior:'smooth'});
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

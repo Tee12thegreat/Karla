@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact — Coming Soon</title>
+    <meta name="description" content="Order page under construction. Page will be available soon." />
+    <style>
+        :root{
+            --bg1:#0f1724;
+            --bg2:#0b1220;
+            --accent:#ffb020;
+            --muted:#9aa6b2;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+            background:linear-gradient(135deg,var(--bg1),var(--bg2));
+            color:#e6eef6;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:24px;
+        }
+        .card{
+            width:100%;
+            max-width:760px;
+            background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+            border:1px solid rgba(255,255,255,0.04);
+            border-radius:12px;
+            padding:36px;
+            text-align:center;
+            box-shadow:0 10px 30px rgba(2,6,23,0.6);
+        }
+        .icon{
+            width:110px;
+            height:110px;
+            margin:0 auto 18px;
+            display:block;
+            animation:float 3s ease-in-out infinite;
+        }
+        @keyframes float{
+            0%{transform:translateY(0)}
+            50%{transform:translateY(-8px)}
+            100%{transform:translateY(0)}
+        }
+        h1{
+            margin:6px 0 6px;
+            font-size:28px;
+            letter-spacing:-0.02em;
+        }
+        p.lead{
+            margin:0 0 18px;
+            color:var(--muted);
+        }
+        .countdown{
+            display:flex;
+            gap:12px;
+            justify-content:center;
+            margin:18px 0 18px;
+            font-weight:600;
+            color:#fff;
+        }
+        .countdown .item{
+            background:rgba(255,255,255,0.04);
+            padding:10px 12px;
+            border-radius:8px;
+            min-width:64px;
+        }
+        .muted{
+            color:var(--muted);
+            font-size:13px;
+        }
+        a.contact-link{
+            display:inline-block;
+            margin-top:14px;
+            color:var(--bg2);
+            background:var(--accent);
+            padding:10px 16px;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:600;
+            box-shadow:0 6px 18px rgba(255,176,32,0.14);
+        }
+        @media (max-width:420px){
+            .countdown{flex-wrap:wrap}
+            .icon{width:88px;height:88px}
+        }
+    </style>
+</head>
+<body>
+    <main class="card" role="main" aria-labelledby="title">
+        <!-- simple construction cone SVG -->
+        <svg class="icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                    <stop offset="0" stop-color="#ffb020"/>
+                    <stop offset="1" stop-color="#ff8a00"/>
+                </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="10" fill="transparent"/>
+            <g transform="translate(6,6)">
+                <path d="M26 2 L46 50 H6 Z" fill="url(#g)" stroke="#d66f00" stroke-width="2"/>
+                <rect x="10" y="34" width="26" height="6" rx="2" fill="#fff" opacity="0.18"/>
+                <rect x="12" y="24" width="22" height="6" rx="2" fill="#fff" opacity="0.12"/>
+                <ellipse cx="26" cy="50" rx="20" ry="6" fill="rgba(0,0,0,0.25)"/>
+            </g>
+        </svg>
+
+        <h1 id="title">Order — Page Under Construction</h1>
+        <p class="lead">This page will be available soon. We're putting the finishing touches on it.</p>
+
+        <div class="countdown" aria-live="polite" aria-atomic="true" id="countdown">
+            <div class="item"><span id="days">--</span><div class="muted">days</div></div>
+            <div class="item"><span id="hours">--</span><div class="muted">hrs</div></div>
+            <div class="item"><span id="minutes">--</span><div class="muted">mins</div></div>
+            <div class="item"><span id="seconds">--</span><div class="muted">secs</div></div>
+        </div>
+
+        <p class="muted">If you need to reach us in the meantime, send an email:</p>
+        <a class="contact-link" href="mailto:takazmulla@gmail.com">takazmulla@gmail.com</a>
+    </main>
+
+    <script>
+        // Countdown to a date 10 days from now (keeps file static-friendly)
+        const target = new Date();
+        target.setDate(target.getDate() + 10);
+        target.setHours(0,0,0,0);
+
+        const $days = document.getElementById('days');
+        const $hours = document.getElementById('hours');
+        const $minutes = document.getElementById('minutes');
+        const $seconds = document.getElementById('seconds');
+        const countdown = () => {
+            const now = new Date();
+            let diff = Math.max(0, target - now);
+            const d = Math.floor(diff / (1000*60*60*24));
+            diff -= d * (1000*60*60*24);
+            const h = Math.floor(diff / (1000*60*60));
+            diff -= h * (1000*60*60);
+            const m = Math.floor(diff / (1000*60));
+            diff -= m * (1000);
+            const s = Math.floor(diff / 1000);
+            $days.textContent = String(d).padStart(2,'0');
+            $hours.textContent = String(h).padStart(2,'0');
+            $minutes.textContent = String(m).padStart(2,'0');
+            $seconds.textContent = String(s).padStart(2,'0');
+            if (target - now <= 0) {
+                document.getElementById('countdown').innerHTML = '<div class="muted">We\'re live!</div>';
+                clearInterval(timer);
+            }
+        };
+        countdown();
+        const timer = setInterval(countdown, 1000);
+    </script>
+</body>
+</html>
