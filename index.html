@@ -10,6 +10,8 @@
         img,svg{max-width:100%;height:auto;display:block}
 
         :root{
+            /* height for the fixed top navigation so content isn't hidden underneath */
+            --nav-height:64px;
             --overlay: rgba(0,0,0,0.45);
             --accent: #ff7fbf;
             --accent-2: #ffd88d;
@@ -28,10 +30,11 @@
         .navigation{
             position:fixed;
             top:0;left:0;right:0;
-            padding:18px 40px;
+            height:var(--nav-height);
+            padding:12px 20px;
             z-index:10;
             display:flex;
-            justify-content:flex-end;
+            align-items:center;
             background:rgba(0,0,0,0.2);
             backdrop-filter:blur(8px);
             box-shadow:0 2px 12px rgba(0,0,0,0.3);
@@ -45,6 +48,9 @@
             justify-content:space-between; /* logo left, links right */
             gap:24px;
         }
+
+        /* ensure the fixed nav doesn't cover the page content */
+        body{ padding-top: calc(var(--nav-height) + 4px); }
 
         .hero{
             position:relative;
@@ -190,7 +196,7 @@
 
         /* Small screens: stack hero content and tighten spacing */
         @media (max-width:600px){
-            .navigation{ padding:12px 18px; }
+            .navigation{ padding:8px 12px; }
             .nav{ padding:0; }
             .nav a{ margin-right:12px; font-size:14px; }
             .container{ flex-direction:column; padding:16px; gap:18px; }
